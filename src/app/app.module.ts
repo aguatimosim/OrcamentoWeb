@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DespesaformComponent } from './despesaform/despesaform.component';
+import { DespesasComponent } from './despesas/despesas.component';
+import { DespesaDetComponent } from './despesa-det/despesa-det.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DespesaformComponent
+    DespesasComponent,
+    DespesaDetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+<div class="container" *ngIf="despesa">
+    <h1>Cadastro de Despesa</h1>
+    <form>
+		<div class="form-group">
+		  	<label>Tipo de Despesa
+				<select class="form-control" id="tipoDespesa" name="tipoDespesa" required
+			  		[(ngModel)]="despesa.tipo" #tipoDesp="ngModel">
+			      <option *ngFor="let tipoDespesa of tiposDespesa" [value]="tipoDespesa.codigo">{{tipoDespesa.descricao}}</option>
+			  	</select>
+			</label>
+		</div>
+		<div class="form-group">
+			<label>Descrição
+				<input type="text" class="form-control" id="descricao" name="descricao" required  
+					[(ngModel)]="despesa.descricao" #descricao="ngModel"/>
+			</label>
+		</div>
+		<button type="submit" class="btn btn-success">Gravar</button>
+    </form>
+</div>

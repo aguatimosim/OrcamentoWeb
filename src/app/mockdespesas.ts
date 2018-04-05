@@ -1,4 +1,5 @@
 import { Despesa } from './despesa';
+import { TipoDeDespesa } from './tipodedespesa';
 
 export const DESPESAS: Despesa[] = [
     { id: 1, tipo: 1, dataPagto: new Date('01-15-2018'), descricao: 'Telefone', valor: 45 }, 
@@ -13,3 +14,11 @@ export const DESPESAS: Despesa[] = [
     { id: 10, tipo: 10, dataPagto: new Date('10-15-2018'), descricao: 'Recebto Honorários Gerson', valor: -420 }, 
     { id: 11, tipo: 11, dataPagto: new Date('11-15-2018'), descricao: 'Mensal Ana', valor: 2440 } 
   ];
+
+  export const TIPOSDESPESA: TipoDeDespesa[] = [
+    { codigo: 3, descricao: 'Dudu, Nando e Raul' },
+    { codigo: 7, descricao: 'Lazer meu' },
+    { codigo: 14, descricao: 'Vinda meninos Rio' },
+    { codigo: 15, descricao: 'Viagens' }
+  ];
+  
