@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 
+
+/* Estilos de validação de FORM trazidos do ASSETS/FORM.CSS do Tutorial */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red - fica azul quando o campo está com FOCO, inclusive na execução do Tutorial */
+}
+
 /* Master Styles */
 h1 {
   color: #369;

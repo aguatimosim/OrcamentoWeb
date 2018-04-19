@@ -1,6 +1,6 @@
 <div class="container" *ngIf="despesa">
     <h1>Cadastro de Despesa</h1>
-    <form>
+    <form (ngSubmit)="onSubmit(despesaForm)" #despesaForm="ngForm">
 		<div class="form-group">
 		  	<label>Tipo de Despesa
 				<select class="form-control" id="tipoDespesa" name="tipoDespesa" required
@@ -10,11 +10,12 @@
 			</label>
 		</div>
 		<div class="form-group">
-			<label>Descrição
+			<label>DescriÃ§Ã£o
 				<input type="text" class="form-control" id="descricao" name="descricao" required  
 					[(ngModel)]="despesa.descricao" #descricao="ngModel"/>
 			</label>
+			<div [hidden]="descricao.valid || descricao.pristine" class="alert alert-danger">Informar Descriï¿½ï¿½o</div>
 		</div>
-		<button type="submit" class="btn btn-success">Gravar</button>
+		<button type="submit" class="btn btn-success" [disabled]="!despesaForm.form.valid">Gravar</button>
     </form>
 </div>

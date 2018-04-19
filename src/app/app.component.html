@@ -1,2 +1,8 @@
 <h1>{{title}}</h1>
-<app-despesaform></app-despesaform>
+ <ul class="nav nav-tabs" role="tablist">
+   <li><a class="navbar-brand" routerLink="/despesas">Cadastro de Despesas</a></li>
+   <li><a class="navbar-brand" routerLink="/detalhe">Orçamento Detalhado</a></li>
+ </ul>
+
+<router-outlet></router-outlet>
+<app-mensagens></app-mensagens>

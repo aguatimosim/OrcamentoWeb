@@ -14,6 +14,11 @@ export class DespesaDetComponent implements OnInit {
   
   tiposDespesa: TipoDeDespesa[] = TIPOSDESPESA;
   
+  onSubmit(despesaForm) {
+    // TODO - chamar aqui a gravação antes de limpar o FORM
+    despesaForm.reset();
+  }
+  
   constructor() { }
 
   ngOnInit() {
