@@ -17,4 +17,12 @@ export class DespesaService {
     
     return of(DESPESAS);
   }
+  
+  getDespesa(id: number): Observable<Despesa>  {
+    // TODO - Substituir esta mensagem pela mensagem de erro quando encontrar problemas no acesso
+    this.mensagensService.add('Despesa lida com id = ' + id);
+     
+    return of(DESPESAS.find(despesa => despesa.id === id));
+  }
+  
 }

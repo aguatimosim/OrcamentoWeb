@@ -1,7 +1,11 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Despesa } from '../despesa';
 import { TIPOSDESPESA } from '../mockdespesas';
+import { DespesaService } from '../servicos/despesa.service';
 import { TipoDeDespesa } from '../tipodedespesa';
-import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-despesa-det',
@@ -9,19 +13,31 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./despesa-det.component.css']
 })
 export class DespesaDetComponent implements OnInit {
-
   @Input() despesa: Despesa;
   
   tiposDespesa: TipoDeDespesa[] = TIPOSDESPESA;
   
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private despesaService: DespesaService)   { }
+
+  ngOnInit() {
+    this.getDespesa();
+  }
+
+  getDespesa(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.despesaService.getDespesa(id)
+      .subscribe(despesa => this.despesa = despesa);
+  }
+
   onSubmit(despesaForm) {
-    // TODO - chamar aqui a gravação antes de limpar o FORM
+    // TODO - chamar aqui a gravaï¿½ï¿½o antes de limpar o FORM
     despesaForm.reset();
   }
   
-  constructor() { }
-
-  ngOnInit() {
+  onVoltar() {
+    this.location.back();
   }
-
 }

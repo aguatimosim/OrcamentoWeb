@@ -16,12 +16,6 @@ export class DespesasComponent implements OnInit {
   despesas: Despesa[];
   tiposDespesa: TipoDeDespesa[];
 
-  despesaSel: Despesa;
-    
-  onClick(despesa: Despesa): void  {
-    this.despesaSel = despesa;
-  }
-  
   constructor(private despesaService: DespesaService, private tipoDespesaService: TipodespesaService) { }
 
   ngOnInit() {

@@ -1,10 +1,10 @@
 <!-- <meta meta charset=utf-8> - apresenta textos fixos desta página em UTF-8 -->
 <h2> Relação de Despesas</h2>
 <ul class="heroes">
-	<li *ngFor="let despesa of despesas" (click)="onClick(despesa)" [class.selected]="despesa === despesaSel">
-		<span class="badge">{{despesa.tipo | number:'2.0-0'}}</span>
-		<span>{{getDescTipo(despesa.tipo)}} / {{despesa.descricao}} / {{despesa.dataPagto | date:'dd/MM/yyyy'}} / {{despesa.valor | currency:'R$'}}</span>
+	<li *ngFor="let despesa of despesas">
+		<a routerLink="/detalhe/{{despesa.id}}">
+			<span class="badge">{{despesa.tipo | number:'2.0-0'}}</span>
+			<span>{{getDescTipo(despesa.tipo)}} / {{despesa.descricao}} / {{despesa.dataPagto | date:'dd/MM/yyyy'}} / {{despesa.valor | currency:'R$'}}</span>
+		</a>
 	</li>
 </ul>
-
-<app-despesa-det [despesa]="despesaSel"></app-despesa-det>
