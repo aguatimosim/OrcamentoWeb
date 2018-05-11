@@ -34,7 +34,7 @@ export class DespesasComponent implements OnInit {
   }
   
   getDescTipo(tipoDesp: number) {
-    const indice = this.tiposDespesa.findIndex(tipoDespesa => tipoDespesa.codigo === tipoDesp);
+    const indice = this.tiposDespesa ? this.tiposDespesa.findIndex(tipoDespesa => tipoDespesa.codigo === tipoDesp) : -1;
     // TODO
     console.log('parâmetro Tipo de Despesa = ' + tipoDesp);
     return indice >= 0 ? this.tiposDespesa[indice].descricao : 'INDEFINIDO';
