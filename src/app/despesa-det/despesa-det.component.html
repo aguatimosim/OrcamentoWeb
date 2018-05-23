@@ -17,6 +17,7 @@
 			<div [hidden]="descricao.valid || descricao.pristine" class="alert alert-danger">Informar Descrição</div>
 		</div>
 		<button type="submit" class="btn btn-success" [disabled]="!despesaForm.form.valid">Gravar</button>
+		<button type="button" class="btn btn-danger" (click)="excluiDespesa()">Excluir</button>
 		<button type="button" class="btn btn-info" (click)="onVoltar()">Voltar</button>
     </form>
 </div>

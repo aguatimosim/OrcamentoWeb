@@ -22,22 +22,69 @@ export class DespesaService {
     }
 
   getDespesas(): Observable<Despesa[]>  {
-    // TODO - Retirar esta mensagem. Mensagem de erro de problemas no acesso já tratada no serviço
-    this.mensagensService.add('Despesas lidas'); 
     
     // return of(DESPESAS);
     
     return this.http.get<Despesa[]>(Constantes.despesasURL)
       .pipe(
+        tap(despesas => this.mensagensService.add('Despesas lidas - Primeira: ' + despesas[0].descricao)),
         catchError(this.handleError('getDespesas', []))
       );
   }
   
   getDespesa(id: number): Observable<Despesa>  {
-    // TODO - Retirar esta mensagem. Mensagem de erro de problemas no acesso já tratada no serviço
-    this.mensagensService.add('Despesa lida com id = ' + id);
-     
-    return of(DESPESAS.find(despesa => despesa.id === id));
+    
+    const url = Constantes.despesasURL + '/' + id;
+    return this.http.get<Despesa>(url)
+      .pipe(
+        tap(despesa => this.mensagensService.add('Despesa lida com id = ' + despesa.id)),
+        catchError(this.handleError<Despesa>('getDespesa id = ' + id))
+      );
+  }
+  
+  updateDespesa(despesa: Despesa): Observable<any>  {
+    
+    return this.http.put<Despesa>(Constantes.despesasURL, despesa, Constantes.httpOptions)
+      .pipe(
+        tap(() => this.mensagensService.add('Despesa gravada com id = ' + despesa.id)),
+        catchError(this.handleError<any>('updateDespesa'))
+      );
+  }
+
+  incluiDespesa(despesa: Despesa): Observable<Despesa>  {
+    
+    return this.http.post<Despesa>(Constantes.despesasURL, despesa, Constantes.httpOptions)
+      .pipe(
+        tap(despesa => this.mensagensService.add('Despesa incluída com id = ' + despesa.id)),
+        catchError(this.handleError<Despesa>('incluiDespesa'))
+      );
+  }
+  
+  excluiDespesa(id: number): Observable<any>  {
+    
+    const url = Constantes.despesasURL + '/' + id;
+    return this.http.delete(url, Constantes.httpOptions)
+      .pipe(
+        tap(() => this.mensagensService.add('Despesa excluída com id = ' + id)),
+        catchError(this.handleError<any>('excluiDespesa id = ' + id))
+      );
+  }
+
+  pesquisDespesa(palavra: string): Observable<Despesa[]>  {
+    
+    if (!palavra.trim()) {
+      return this.getDespesas();
+    }
+    const url = Constantes.despesasURL + '/?descricao=' + palavra;
+    return this.http.get<Despesa[]>(url)
+      .pipe(
+        tap(despesa => {
+          this.mensagensService.add('Despesas correspondentes a = ' + palavra);
+          // TODO
+          console.log(JSON.stringify(despesa));
+        }),
+        catchError(this.handleError<Despesa[]>('pesquisDespesa = ' + palavra))
+      );
   }
   
 }

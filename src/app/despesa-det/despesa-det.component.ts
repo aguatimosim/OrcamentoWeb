@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Despesa } from '../despesa';
-import { TIPOSDESPESA } from '../mockdespesas';
 import { DespesaService } from '../servicos/despesa.service';
+import { TipodespesaService } from '../servicos/tipodespesa.service';
 import { TipoDeDespesa } from '../tipodedespesa';
 
 @Component({
@@ -13,28 +13,57 @@ import { TipoDeDespesa } from '../tipodedespesa';
   styleUrls: ['./despesa-det.component.css']
 })
 export class DespesaDetComponent implements OnInit {
-  @Input() despesa: Despesa;
+  @Input() despesa: Despesa = new Despesa(null, null, null, null, null, null);
   
-  tiposDespesa: TipoDeDespesa[] = TIPOSDESPESA;
+  tiposDespesa: TipoDeDespesa[];
+  id: number; 
   
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private despesaService: DespesaService)   { }
+    private despesaService: DespesaService,
+    private tipoDespesaService: TipodespesaService)   { }
 
   ngOnInit() {
     this.getDespesa();
+    this.getTiposDespesa();
   }
 
   getDespesa(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.despesaService.getDespesa(id)
-      .subscribe(despesa => this.despesa = despesa);
+    this.id = +this.route.snapshot.paramMap.get('id');
+    
+    if (this.id > 0) {     // Não lê despesa caso seja Nova Despesa
+      this.despesaService.getDespesa(this.id)
+        .subscribe(despesa => this.despesa = despesa);
+    }
   }
 
-  onSubmit(despesaForm) {
-    // TODO - chamar aqui a grava��o antes de limpar o FORM
-    despesaForm.reset();
+  getTiposDespesa(): void  {
+    this.tipoDespesaService.getTiposDespesa()
+      .subscribe(tiposDespesa => this.tiposDespesa = tiposDespesa);
+  }
+  
+  onSubmit(despesaForm): void {
+    if (this.id > 0) {
+      this.updateDespesa();
+    } else {
+      this.gravaDespesa();
+    }
+  }
+  
+  updateDespesa(): void {
+    this.despesaService.updateDespesa(this.despesa)
+      .subscribe(() => this.onVoltar());
+  }
+  
+  gravaDespesa(): void {
+    this.despesaService.incluiDespesa(this.despesa)
+      .subscribe(() => this.onVoltar());
+  }
+  
+  excluiDespesa(): void {
+    this.despesaService.excluiDespesa(this.despesa.id)
+      .subscribe(() => this.onVoltar());
   }
   
   onVoltar() {

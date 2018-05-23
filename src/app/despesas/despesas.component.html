@@ -1,10 +1,13 @@
 <!-- <meta meta charset=utf-8> - apresenta textos fixos desta página em UTF-8 -->
 <h2> Relação de Despesas</h2>
 <ul class="heroes">
-	<li *ngFor="let despesa of despesas">
+	<li *ngFor="let despesa of despesas$ | async">
 		<a routerLink="/detalhe/{{despesa.id}}">
 			<span class="badge">{{despesa.tipo | number:'2.0-0'}}</span>
 			<span>{{getDescTipo(despesa.tipo)}} / {{despesa.descricao}} / {{despesa.dataPagto | date:'dd/MM/yyyy'}} / {{despesa.valor | currency:'R$'}}</span>
 		</a>
 	</li>
 </ul>
+<button type="button" class="btn btn-success" (click)="detalhe()">Nova Despesa</button>
+&nbsp;&nbsp;Pesquisa Descrição:
+<input #searchBox id="search-box" (keyup)="pesquisa(searchBox.value)" />
